@@ -1,0 +1,6 @@
+tests/*
+
+build.sh
+publish.sh
+
+docker-compose*

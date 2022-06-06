@@ -1,2 +1,2 @@
-# tent-monitor
+# Tent Monitor
 Tent monitoring software
