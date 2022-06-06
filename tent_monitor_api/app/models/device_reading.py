@@ -1,7 +1,7 @@
 from peewee import (
-    AutoField,
     CompositeKey,
     DecimalField,
+    IntegerField,
     TextField,
     SQL,
 )
@@ -12,9 +12,9 @@ from app.models.base import BaseModel
 
 class DeviceReading(BaseModel):
     barometric = DecimalField(null=True)
-    device_id = TextField()
     humidity = DecimalField(null=True)
-    id = AutoField(constraints=[SQL("DEFAULT nextval('device_readings_id_seq'::regclass)")])
+    id = IntegerField(index=True, constraints=[SQL("DEFAULT nextval('device_readings_id_seq'::regclass)")])
+    device_id = TextField()
     reading_ts = DateTimeTZField(index=True)
     temperature = DecimalField(null=True)
 
