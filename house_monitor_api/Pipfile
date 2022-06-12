@@ -8,6 +8,7 @@ peewee = "*"
 falcon = "*"
 gunicorn = "*"
 psycopg2 = "*"
+pydantic = "*"
 
 [dev-packages]
 pytest = "*"
