@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS device_readings (
     id SERIAL,
     reading_ts TIMESTAMPTZ,
     device_id TEXT,
-    temperature NUMERIC,
-    barometric NUMERIC,
-    humidity NUMERIC,
+    temperature_c NUMERIC,
+    pressure_hpa NUMERIC,
+    humidity_percent NUMERIC,
 
     PRIMARY KEY (reading_ts, device_id, id)
 );

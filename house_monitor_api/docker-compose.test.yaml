@@ -1,14 +1,18 @@
 version: "3.3"
 services:
-  house-monitor-api:
-    image: ghcr.io/jspaulsen/house-monitor-api:1.0.0-dev.0
+  tests:
+    build:
+      context: .
+      target: test
     environment:
       DATABASE_URL: postgresql://postgres:password@timescaledb/database?sslmode=disable
+      SKIP_DATABASE_TESTS: 'false'
       API_KEY: abcd123
     depends_on:
       - timescaledb
     ports:
       - 9000:9000
+    command: test
 
   timescaledb:
     image: timescale/timescaledb:2.7.0-pg14

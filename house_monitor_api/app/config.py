@@ -1,10 +1,8 @@
-from __future__ import annotations
 import os
+from pathlib import Path
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 API_KEY = os.getenv('API_KEY')
 
-
-def missing() -> list[str]:
-    pass
+VERSION = (Path(__file__).parents[1] / 'VERSION').open().read().strip()

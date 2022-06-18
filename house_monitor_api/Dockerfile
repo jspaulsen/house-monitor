@@ -1,4 +1,4 @@
-FROM python:3.10.4-slim-buster
+FROM python:3.10.4-slim-buster as production
 
 ARG DBMATE_VERSION=v1.15.0
 ENV DBMATE_URL=https://github.com/amacneil/dbmate/releases/download/${DBMATE_VERSION}/dbmate-linux-amd64
@@ -36,8 +36,19 @@ COPY Pipfile Pipfile.lock /app/
 RUN \
     pipenv sync
 
-
-COPY . /app/
+COPY bin /app/bin
+COPY db /app/db
+COPY VERSION /app/
+COPY app /app/app
 
 ENTRYPOINT [ "bin/docker_bootstrap"]
 CMD ["production"]
+
+
+################
+FROM production as test
+
+RUN \
+    pipenv install --dev
+
+COPY tests /app/tests

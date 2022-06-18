@@ -9,9 +9,13 @@ falcon = "*"
 gunicorn = "*"
 psycopg2 = "*"
 pydantic = "*"
+orjson = "*"
+pendulum = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-mock = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.10"

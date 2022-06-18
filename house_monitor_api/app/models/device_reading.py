@@ -11,12 +11,12 @@ from app.models.base import BaseModel
 
 
 class DeviceReading(BaseModel):
-    barometric = DecimalField(null=True)
-    humidity = DecimalField(null=True)
+    pressure_hpa = DecimalField(null=True)
+    humidity_percent = DecimalField(null=True)
     id = IntegerField(index=True, constraints=[SQL("DEFAULT nextval('device_readings_id_seq'::regclass)")])
     device_id = TextField()
     reading_ts = DateTimeTZField(index=True)
-    temperature = DecimalField(null=True)
+    temperature_c = DecimalField(null=True)
 
     class Meta:
         table_name = 'device_readings'

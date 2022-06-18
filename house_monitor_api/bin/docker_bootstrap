@@ -31,6 +31,15 @@ case "${ENVIRONMENT}" in
             gunicorn --bind "${HTTP_HOST}:${HTTP_PORT}" app.main:api
     ;;
 
+    test)
+        setup
+        pipenv run \
+            pytest -v \
+			    --cov-report term-missing \
+                --cov app \
+                tests
+    ;;
+
     *)
         echo "Unknown command ${ENVIRONMENT}." >&2
     ;;
