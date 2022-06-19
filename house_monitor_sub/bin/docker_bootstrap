@@ -1,0 +1,42 @@
+#!/bin/bash
+set -ex
+
+ENVIRONMENT=$1
+shift
+
+
+function setup () {
+    if [[ -z ${DATABASE_URL} ]]; then
+        echo "ERROR: Environment variable DATABASE_URL must be set." >&2
+        exit 1
+    fi
+
+    dbmate wait
+    dbmate migrate
+}
+
+
+case "${ENVIRONMENT}" in
+    migrate)
+        setup
+    ;;
+
+    production)
+        setup
+        pipenv run \
+            python -u -m app.main
+    ;;
+
+    test)
+        setup
+        pipenv run \
+            pytest -v \
+			    --cov-report term-missing \
+                --cov app \
+                tests
+    ;;
+
+    *)
+        echo "Unknown command ${ENVIRONMENT}." >&2
+    ;;
+esac 
