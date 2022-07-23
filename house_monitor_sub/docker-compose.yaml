@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  house-monitor-sub:
+    image: ghcr.io/jspaulsen/house-monitor-sub:1.0.0-dev.0
+    environment:
+      DATABASE_URL: postgresql://postgres:password@timescaledb/database?sslmode=disable
+      MQTT_BROKER_HOST: 192.168.2.252
+      MQTT_BROKER_PORT: 1883
+      PYTHONUNBUFFERED: 1 
+    depends_on:
+      - timescaledb
+    ports:
+      - 9000:9000
+
+  timescaledb:
+    image: timescale/timescaledb:2.7.0-pg14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - 5432:5432

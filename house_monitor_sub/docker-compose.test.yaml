@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  tests:
+    build:
+      context: .
+      target: test
+    environment:
+      DATABASE_URL: postgresql://postgres:password@timescaledb/database?sslmode=disable
+      SKIP_DATABASE_TESTS: 'false'
+    depends_on:
+      - timescaledb
+    ports:
+      - 9000:9000
+    command: test
+
+  timescaledb:
+    image: timescale/timescaledb:2.7.0-pg14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - 5432:5432

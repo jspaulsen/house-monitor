@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  house-monitor-api:
+    image: ghcr.io/jspaulsen/house-monitor-api:1.0.0-dev.0
+    environment:
+      DATABASE_URL: postgresql://postgres:password@timescaledb/database?sslmode=disable
+    depends_on:
+      - timescaledb
+    command: migrate
+
+  timescaledb:
+    image: timescale/timescaledb:2.7.0-pg14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - 5432:5432
