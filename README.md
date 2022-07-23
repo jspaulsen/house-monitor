@@ -1,2 +1,2 @@
-# Tent Monitor
-Tent monitoring software
+# House Monitor
+House monitoring software
