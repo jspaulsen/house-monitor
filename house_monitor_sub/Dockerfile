@@ -1,10 +1,14 @@
+# syntax=docker/dockerfile:1.2
 FROM python:3.10.4-slim-buster as production
 
 ARG DBMATE_VERSION=v1.15.0
-ENV DBMATE_URL=https://github.com/amacneil/dbmate/releases/download/${DBMATE_VERSION}/dbmate-linux-amd64
+ARG TARGETPLATFORM
+ENV DBMATE_URL=https://github.com/amacneil/dbmate/releases/download/${DBMATE_VERSION}/dbmate-linux
 
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+
+SHELL ["/bin/bash", "-c"]
 
 
 RUN \
@@ -24,7 +28,8 @@ RUN \
         app
 
 RUN \
-    curl -fsSL -o /usr/local/bin/dbmate ${DBMATE_URL} && \
+    if [[ ${TARGETPLATFORM} == *"arm"* ]]; then ARCH="arm64"; else ARCH="amd64"; fi && \
+    curl -fsSL -o /usr/local/bin/dbmate "${DBMATE_URL}-${ARCH}" && \
     chmod +x /usr/local/bin/dbmate
 
 
